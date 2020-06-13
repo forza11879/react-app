@@ -1,0 +1,67 @@
+.main {
+  grid-area: main;
+  background: #ecedf2;
+  display: grid;
+  grid-gap: 1.5em;
+  grid-template-columns: auto;
+  grid-template-rows: max-content 1fr;
+  grid-template-areas: 'charts' 'trading';
+  padding: 1.5em 1.5em 1.5em 1.5em;
+  transition: all 500ms ease-in-out;
+
+  .charts {
+    grid-area: charts;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 1rem;
+  }
+
+  .trading {
+    grid-area: trading;
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, auto);
+    grid-template-rows: minmax(200px, 600px);
+    grid-auto-flow: dense;
+    grid-template-areas: 'one one two two two two';
+
+    .two {
+      grid-area: two;
+      height: auto;
+      background: #495867;
+    }
+
+    .one {
+      grid-area: one;
+      height: auto;
+    }
+  }
+
+  // .main:container(width < 900px) {
+  //   .trading {
+  //     grid-template-areas: 'one' 'two';
+  //   }
+
+  //   .two {
+  //     min-height: 300px;
+  //   }
+
+  //   .one {
+  //     min-height: 100px;
+  //   }
+  // }
+
+  @media (max-width: 900px) {
+    .trading {
+      grid-template-areas: 'one' 'two';
+    }
+
+    .two {
+      min-height: 300px;
+    }
+
+    .one {
+      min-height: 100px;
+    }
+  }
+}
