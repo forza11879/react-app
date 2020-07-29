@@ -2,11 +2,28 @@ import React, { Component } from 'react';
 import './sidebar.styles.scss';
 
 class Sidebar extends Component {
+  state = {
+    isActive: true,
+  };
+
+  toggleClassCircle = () => {
+    const { isActive } = this.state;
+    this.setState({ isActive: !isActive });
+  };
+
   render() {
     return (
-      <div className="panel sidebar">
-        <ul className="menu">
-          <li>
+      <div className={this.getIsActiveStatusCircle()}>
+        <ul className="menu menuOne">
+          <li className="tabIcon">
+            <a href="/">
+              <span className="icon">
+                <i className="fas fa-bars fa-lg"></i>
+              </span>
+              <span className="text">Options</span>
+            </a>
+          </li>
+          <li className="tabIcon">
             <a href="/">
               <span className="icon">
                 <i className="fas fa-folder-open fa-lg"></i>
@@ -33,14 +50,6 @@ class Sidebar extends Component {
           <li className="tabIcon">
             <a href="/">
               <span className="icon">
-                <i className="fas fa-th fa-lg"></i>
-              </span>
-              <span className="text">Options</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
                 <i className="fas fa-satellite fa-lg"></i>
               </span>
               <span className="text">News</span>
@@ -55,8 +64,39 @@ class Sidebar extends Component {
             </a>
           </li>
         </ul>
+
+        <ul className="menu menuTwo">
+          <li className="tabIcon circle" onClick={this.toggleClassCircle}>
+            <a href="#">
+              <span className="icon">
+                <i className={this.getOnOffToggleCircle()}></i>
+              </span>
+              <span className="text">Buy/Sell</span>
+            </a>
+          </li>
+          <li className="tabIcon">
+            <a href="/">
+              <span className="icon">
+                <i className="fas fa-sign-out-alt fa-lg"></i>
+              </span>
+              <span className="text">Sign-out</span>
+            </a>
+          </li>
+        </ul>
       </div>
     );
+  }
+
+  getOnOffToggleCircle() {
+    return this.state.isActive === true
+      ? 'fas fa-minus-circle fa-lg'
+      : 'fas fa-plus-circle fa-lg';
+  }
+
+  getIsActiveStatusCircle() {
+    return this.state.isActive === true
+      ? 'panel sidebar active'
+      : 'panel sidebar';
   }
 }
 

@@ -1,12 +1,20 @@
 .sidebar {
   grid-area: sidebar;
-  width: 200px;
-  min-width: 200px;
+  // width: 200px;
+  // min-width: 200px;
   background: #2c343b;
-  height: 100%;
-  // overflow-x: hidden;
-  // z-index: 1;
-  transition: all 500ms ease-in-out;
+  // height: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  z-index: 1;
+  transition: all 300ms ease-in-out;
+
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   .menu {
     padding-right: 30px;
@@ -59,12 +67,16 @@
       }
     }
   }
+
+  .menuTwo {
+    border-top: 3px solid #ecedf2;
+  }
 }
 
 .header:not(.active) ~ .sidebar {
   width: 70px;
   min-width: 70px;
-  transition: all 500ms ease-in-out;
+  transition: all 400ms ease-in-out;
 
   .menu {
     overflow-x: hidden;

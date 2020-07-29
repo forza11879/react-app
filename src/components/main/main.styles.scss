@@ -2,24 +2,30 @@
   grid-area: main;
   background: #ecedf2;
   display: grid;
-  grid-gap: 1.5em;
-  grid-template-columns: auto;
-  grid-template-rows: max-content 1fr;
+  // grid-gap: 1.5em;
+  grid-row-gap: 0.5em;
+  grid-column-gap: 0.5em;
+  // grid-template-columns: auto;
+  // grid-template-rows: max-content 1fr;
   grid-template-areas: 'charts' 'trading';
-  padding: 1.5em 1.5em 1.5em 1.5em;
+  padding: 0 1.5em 0 1.5em;
   transition: all 500ms ease-in-out;
 
   .charts {
     grid-area: charts;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 1rem;
+    // grid-gap: 1rem;
+    grid-row-gap: 0.5em;
+    grid-column-gap: 0.5em;
   }
 
   .trading {
     grid-area: trading;
     display: grid;
-    grid-gap: 1rem;
+    // grid-gap: 1rem;
+    grid-row-gap: 0.5em;
+    grid-column-gap: 0.5em;
     grid-template-columns: repeat(auto-fill, auto);
     grid-template-rows: minmax(200px, 600px);
     grid-auto-flow: dense;
