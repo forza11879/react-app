@@ -8,7 +8,7 @@
   transition: all 500ms ease-in-out;
 }
 
-.sidebar.active ~ .sidebarTwo {
+.sidebar:not(.active) ~ .sidebarTwo {
   transform: translateX(-550px);
   transition: all 500ms ease-in-out;
 }

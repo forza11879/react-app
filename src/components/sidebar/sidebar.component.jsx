@@ -89,8 +89,8 @@ class Sidebar extends Component {
 
   getOnOffToggleCircle() {
     return this.state.isActive === true
-      ? 'fas fa-minus-circle fa-lg'
-      : 'fas fa-plus-circle fa-lg';
+      ? 'fas fa-plus-circle fa-lg'
+      : 'fas fa-minus-circle fa-lg';
   }
 
   getIsActiveStatusCircle() {
