@@ -6,8 +6,10 @@ async function getData() {
   return data.webApiData;
 }
 
-async function getSymbolData() {
-  const response = await fetch('http://localhost:3500/stock/websearch/TS');
+async function getSymbolData(symbol) {
+  const response = await fetch(
+    `http://localhost:3500/stock/websearch/${symbol}`
+  );
   const data = await response.json();
   // console.log('data webApiData from the back: ', data.webApiData);
   // console.log('data symbol from the back: ', data.symbol);
