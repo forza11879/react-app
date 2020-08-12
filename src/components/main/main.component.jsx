@@ -1,26 +1,45 @@
 import React, { Component } from 'react';
 import './main.styles.scss';
 import { createChart } from 'lightweight-charts';
-import { getData, getSymbolData } from './utils.js';
+import { getData, getSymbolData, getCreateChart } from './utils.js';
 
 import AsyncSelect from 'react-select/async';
 
-class Main extends Component {
-  ref = React.createRef();
-  textInput = React.createRef();
-  // textInput = React.useRef(null);
-  state = {
-    selectedSymbol: null,
-    isClearable: true,
-    symbol: null,
-  };
-
-  getInputValue() {
-    return this.ref.select.state.inputValue;
+class MyAsyncSelect extends React.Component {
+  /* Select component reference can be used to get currently focused option */
+  getFocusedOption() {
+    return this.ref.select.select.state.focusedOption;
   }
 
-  toggleClearable = () =>
-    this.setState((state) => ({ isClearable: !state.isClearable }));
+  // we'll store lastFocusedOption as instance variable (no reason to use state)
+  componentDidMount() {
+    this.lastFocusedOption = this.getFocusedOption();
+  }
+
+  // Select component reference can be used to check if menu is opened */
+  isMenuOpen() {
+    return this.ref.select.state.menuIsOpen;
+  }
+
+  // This function will be called after each user interaction (click, keydown, mousemove).
+  // If menu is opened and focused value has been changed we will call onFocusedOptionChanged
+  // function passed to this component using props. We do it asynchronously because onKeyDown
+  // event is fired before the focused option has been changed.
+  onUserInteracted = () => {
+    Promise.resolve().then(() => {
+      const focusedOption = this.getFocusedOption();
+      if (this.isMenuOpen() && this.lastFocusedOption !== focusedOption) {
+        this.lastFocusedOption = focusedOption;
+        this.props.onFocusedOptionChanged(focusedOption);
+      }
+    });
+  };
+
+  onInputChange = (_, { action }) => {
+    if (action === 'set-value') {
+      this.props.onOptionSelected(this.getFocusedOption());
+    }
+  };
 
   loadOptions = async (inputText) => {
     const symbolData = await getSymbolData(inputText);
@@ -28,80 +47,68 @@ class Main extends Component {
     return symbolData;
   };
 
-  // _handleChange = (event) => {
-  //   this.setState({ value: event.target.value })
-  // }
+  // we're setting onUserInteracted method as callback to different user interactions
+  render() {
+    return (
+      <div onMouseMove={this.onUserInteracted} onClick={this.onUserInteracted}>
+        <AsyncSelect
+          {...this.props}
+          ref={(ref) => (this.ref = ref)}
+          onKeyDown={this.onUserInteracted}
+          onInputChange={this.onInputChange}
+          loadOptions={this.loadOptions}
+        />
+      </div>
+    );
+  }
+}
 
-  onInputChange = (newValue, reason) => {
-    console.log('reason.action :', reason.action);
-    // const { value } = this.props;
-    // console.log('PROPS :', this.props);
-    // console.log('newValue :', newValue);
-    // console.log('newValue :', e.value);
+class Main extends Component {
+  ref = React.createRef();
+  state = {
+    selectedSymbol: null,
+    isClearable: true,
+    symbol: null,
+  };
 
-    // removes all the symbols, spaces
-    const selectedSymbol = newValue.replace(/\W/g, '');
+  // loadOptions = (_, callback) => callback(
+  //     getSymbolData().then((data) => {
+  //     console.log(data);
+  //     this.setState({ selectedSymbol: data });
+  //     console.log('THIS.selectedSymbol', this.selectedSymbol);
+  //   });
+  // );
 
-    this.setState({ selectedSymbol: selectedSymbol });
+  onFocusedOptionChanged = (option) => console.log('focused on: ', option);
 
-    // return selectedSymbol;
+  onOptionSelected = (option) => {
+    console.log('selected: ', option.label);
+    this.setState({ selectedSymbol: option.label });
+    console.log('STATE', this.state.selectedSymbol);
+    // return await option;
   };
 
   componentDidMount() {
-    const chart = createChart(this.ref.current, {
-      width: 900,
-      height: 400,
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: false,
-      },
-    });
-
-    const candleSeries = chart.addCandlestickSeries();
-    console.log(
-      'DID MOUNT this.state.selectedSymbol:',
-      this.state.selectedSymbol
-    );
-
-    getData().then((data) => {
+    const candleSeries = getCreateChart(this.ref.current, createChart);
+    getData(this.state.selectedSymbol).then((data) => {
       console.log(data);
       candleSeries.setData(data);
     });
+    console.log('STATE from Mount', this.state.selectedSymbol);
   }
 
   render() {
-    const { isClearable } = this.state;
-    console.log('console this.state:', this.state);
-    console.log(
-      'console this.state.selectedSymbol:',
-      this.state.selectedSymbol
-    );
     return (
       <div className="main">
         <div className="trading">
           <div className="box one">
-            <AsyncSelect
-              defaultOptions
+            <MyAsyncSelect
               cacheOptions
-              loadOptions={this.loadOptions}
-              onInputChange={this.handleInputChange}
-              // onChange={this.handleInputChange}
-              autoFocus
-              noOptionsMessage={() => 'Search symbol'}
-              placeholder="Search Symbol"
-              isClearable={isClearable} // allows us to clear the selected value either using the backspace button or the “x” button on the right side of the field
-              clear // Removing all selected options using the clear button
-              pop-value // Removing options using backspace
-              loadingIndicator
-            />
+              // defaultOptions={this.loadOptions} // loaded only on init
 
-            {/* {this.state.selectedValue && (
-              <div style={{ marginTop: 20, lineHeight: '25px' }}>
-                <div>
-                  <b>Selected Value: </b> {this.state.selectedValue}
-                </div>
-              </div>
-            )} */}
+              onFocusedOptionChanged={this.onFocusedOptionChanged}
+              onOptionSelected={this.onOptionSelected}
+            />
           </div>
           <div className="box two" ref={this.ref}></div>
         </div>

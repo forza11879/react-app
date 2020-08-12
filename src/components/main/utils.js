@@ -18,4 +18,19 @@ async function getSymbolData(symbol) {
   return data;
 }
 
-export { getData, getSymbolData };
+function getCreateChart(ref, createChart) {
+  // this.ref.current
+  const chart = createChart(ref, {
+    width: 900,
+    height: 400,
+    timeScale: {
+      timeVisible: true,
+      secondsVisible: false,
+    },
+  });
+
+  const candleSeries = chart.addCandlestickSeries();
+  return candleSeries;
+}
+
+export { getData, getSymbolData, getCreateChart };
