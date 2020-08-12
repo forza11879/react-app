@@ -1,5 +1,7 @@
-async function getData() {
-  const response = await fetch('http://localhost:3500/stock/app/AAPL');
+async function getData(symbol) {
+  const response = await fetch(
+    `http://localhost:3500/stock/app/${symbol ? symbol : 'bac'}`
+  );
   const data = await response.json();
   // console.log('data webApiData from the back: ', data.webApiData);
   // console.log('data symbol from the back: ', data.symbol);
