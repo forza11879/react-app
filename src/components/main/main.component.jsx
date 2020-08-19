@@ -35,6 +35,9 @@ class MyAsyncSelect extends React.Component {
     });
   };
 
+  toggleClearable = () =>
+    this.setState({ isClearable: !this.props.isClearable });
+
   onInputChange = (_, { action }) => {
     if (action === 'set-value') {
       this.props.onOptionSelected(this.getFocusedOption());
@@ -57,6 +60,13 @@ class MyAsyncSelect extends React.Component {
           onKeyDown={this.onUserInteracted}
           onInputChange={this.onInputChange}
           loadOptions={this.loadOptions}
+          autoFocus
+          noOptionsMessage={() => 'Search symbol'}
+          placeholder="Search Symbol"
+          isClearable={this.props.isClearable} // allows us to clear the selected value either using the backspace button or the “x” button on the right side of the field
+          clear // Removing all selected options using the clear button
+          pop-value // Removing options using backspace
+          loadingIndicator
         />
       </div>
     );
@@ -71,21 +81,13 @@ class Main extends Component {
     symbol: null,
   };
 
-  // loadOptions = (_, callback) => callback(
-  //     getSymbolData().then((data) => {
-  //     console.log(data);
-  //     this.setState({ selectedSymbol: data });
-  //     console.log('THIS.selectedSymbol', this.selectedSymbol);
-  //   });
-  // );
-
   onFocusedOptionChanged = (option) => console.log('focused on: ', option);
 
   onOptionSelected = (option) => {
     console.log('selected: ', option.label);
-    this.setState({ selectedSymbol: option.label });
-    console.log('STATE', this.state.selectedSymbol);
-    // return await option;
+    this.setState({ selectedSymbol: option.label }, () =>
+      console.log('STATE selectedSymbol', this.state.selectedSymbol)
+    );
   };
 
   componentDidMount() {
@@ -94,7 +96,16 @@ class Main extends Component {
       console.log(data);
       candleSeries.setData(data);
     });
-    console.log('STATE from Mount', this.state.selectedSymbol);
+    console.log('STATE from DidMount', this.state.selectedSymbol);
+  }
+
+  componentDidUpdate() {
+    const candleSeries = getCreateChart(this.ref.current, createChart);
+    getData(this.state.selectedSymbol).then((data) => {
+      console.log(data);
+      candleSeries.setData(data);
+    });
+    console.log('STATE from DidUpdate', this.state.selectedSymbol);
   }
 
   render() {
@@ -105,7 +116,7 @@ class Main extends Component {
             <MyAsyncSelect
               cacheOptions
               // defaultOptions={this.loadOptions} // loaded only on init
-
+              isClearable={this.state.isClearable}
               onFocusedOptionChanged={this.onFocusedOptionChanged}
               onOptionSelected={this.onOptionSelected}
             />
