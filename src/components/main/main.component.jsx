@@ -73,6 +73,8 @@ class MyAsyncSelect extends React.Component {
   }
 }
 
+let candleSeries;
+
 class Main extends Component {
   ref = React.createRef();
   state = {
@@ -91,7 +93,7 @@ class Main extends Component {
   };
 
   componentDidMount() {
-    const candleSeries = getCreateChart(this.ref.current, createChart);
+    candleSeries = getCreateChart(this.ref.current, createChart);
     getData(this.state.selectedSymbol).then((data) => {
       console.log(data);
       candleSeries.setData(data);
@@ -100,10 +102,10 @@ class Main extends Component {
   }
 
   componentDidUpdate() {
-    const candleSeries = getCreateChart(this.ref.current, createChart);
     getData(this.state.selectedSymbol).then((data) => {
       console.log(data);
       candleSeries.setData(data);
+      // candleSeries.update(data);
     });
     console.log('STATE from DidUpdate', this.state.selectedSymbol);
   }
