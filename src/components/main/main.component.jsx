@@ -52,6 +52,7 @@ class MyAsyncSelect extends React.Component {
 
   // we're setting onUserInteracted method as callback to different user interactions
   render() {
+    console.log('RENDER Child');
     return (
       <div onMouseMove={this.onUserInteracted} onClick={this.onUserInteracted}>
         <AsyncSelect
@@ -101,16 +102,39 @@ class Main extends Component {
     console.log('STATE from DidMount', this.state.selectedSymbol);
   }
 
-  componentDidUpdate() {
-    getData(this.state.selectedSymbol).then((data) => {
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   getData(this.state.selectedSymbol).then((data) => {
+  //     console.log(data);
+  //     candleSeries.setData(data);
+  //     // candleSeries.update(data);
+  //   });
+  //   console.log('this.state from DidUpdate', this.state.selectedSymbol);
+  //   console.log('prevState from DidUpdate', prevState.selectedSymbol);
+  //   console.log('snapshot from DidUpdate', snapshot);
+  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    getData(nextState.selectedSymbol).then((data) => {
       console.log(data);
       candleSeries.setData(data);
       // candleSeries.update(data);
     });
-    console.log('STATE from DidUpdate', this.state.selectedSymbol);
+    console.log(
+      'nextState from shouldComponentUpdate',
+      nextState.selectedSymbol
+    );
+    console.log(
+      'this.state from shouldComponentUpdate',
+      this.state.selectedSymbol
+    );
+    nextState.selectedSymbol !== this.state.selectedSymbol
+      ? console.log('Not Equal')
+      : console.log('Equal');
+    return false;
   }
 
   render() {
+    console.log('RENDER Parent');
     return (
       <div className="main">
         <div className="trading">
