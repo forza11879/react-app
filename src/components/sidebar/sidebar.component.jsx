@@ -19,18 +19,16 @@ class Sidebar extends Component {
     return (
       <div className={this.getIsActiveStatusCircle()}>
         <ul className="menu menuOne">
-          {this.state.sectionsone.map(({ id, icon, title }) => (
-            <MenuItemOne key={id} icon={icon} title={title} />
+          {this.state.sectionsone.map(({ id, ...otherSectionProps }) => (
+            <MenuItemOne key={id} {...otherSectionProps} />
           ))}
         </ul>
 
         <ul className="menu menuTwo">
-          {this.state.sectionstwo.map(({ id, icon, title, toggle }) => (
+          {this.state.sectionstwo.map(({ id, ...otherSectionProps }) => (
             <MenuItemTwo
               key={id}
-              icon={icon}
-              title={title}
-              toggle={toggle}
+              {...otherSectionProps}
               getOnOffToggleCircle={this.getOnOffToggleCircle()}
               toggleClassCircle={this.toggleClassCircle}
             />
