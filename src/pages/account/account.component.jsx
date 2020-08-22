@@ -7,6 +7,7 @@ import Sidebartwo from '../../components/sidebarTwo/sidebarTwo.component';
 
 class AccountPage extends Component {
   render() {
+    console.log('Props AccountPage', this.props);
     return (
       <React.Fragment>
         <Sidebar />

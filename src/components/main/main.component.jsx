@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import './main.styles.scss';
 import { createChart } from 'lightweight-charts';
 import { getData, getSymbolData, getCreateChart } from './utils.js';
@@ -53,6 +54,7 @@ class MyAsyncSelect extends React.Component {
   // we're setting onUserInteracted method as callback to different user interactions
   render() {
     console.log('RENDER Child');
+    console.log('Props MyAsyncSelect', this.props);
     return (
       <div onMouseMove={this.onUserInteracted} onClick={this.onUserInteracted}>
         <AsyncSelect
@@ -135,6 +137,8 @@ class Main extends Component {
 
   render() {
     console.log('RENDER Parent');
+    console.log('Props Main', this.props);
+
     return (
       <div className="main">
         <div className="trading">
@@ -160,4 +164,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

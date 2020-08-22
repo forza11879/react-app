@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import './sidebar.styles.scss';
+import { menuItemsOne, menuItemsTwo } from './utils.js';
+import { MenuItemOne, MenuItemTwo } from './MenuItem/menu-item.component';
 
 class Sidebar extends Component {
   state = {
     isActive: true,
+    sectionsone: menuItemsOne,
+    sectionstwo: menuItemsTwo,
   };
 
   toggleClassCircle = () => {
@@ -15,73 +19,22 @@ class Sidebar extends Component {
     return (
       <div className={this.getIsActiveStatusCircle()}>
         <ul className="menu menuOne">
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-bars fa-lg"></i>
-              </span>
-              <span className="text">Options</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-folder-open fa-lg"></i>
-              </span>
-              <span className="text">Account</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-binoculars fa-lg"></i>
-              </span>
-              <span className="text">Watchlist</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/" className="active">
-              <span className="icon">
-                <i className="fas fa-chart-line fa-lg"></i>
-              </span>
-              <span className="text">Stocks</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-satellite fa-lg"></i>
-              </span>
-              <span className="text">News</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-sliders-h fa-lg"></i>
-              </span>
-              <span className="text">Settings</span>
-            </a>
-          </li>
+          {this.state.sectionsone.map(({ id, icon, title }) => (
+            <MenuItemOne key={id} icon={icon} title={title} />
+          ))}
         </ul>
 
         <ul className="menu menuTwo">
-          <li className="tabIcon circle" onClick={this.toggleClassCircle}>
-            <a href="#">
-              <span className="icon">
-                <i className={this.getOnOffToggleCircle()}></i>
-              </span>
-              <span className="text">Buy/Sell</span>
-            </a>
-          </li>
-          <li className="tabIcon">
-            <a href="/">
-              <span className="icon">
-                <i className="fas fa-sign-out-alt fa-lg"></i>
-              </span>
-              <span className="text">Sign-out</span>
-            </a>
-          </li>
+          {this.state.sectionstwo.map(({ id, icon, title, toggle }) => (
+            <MenuItemTwo
+              key={id}
+              icon={icon}
+              title={title}
+              toggle={toggle}
+              getOnOffToggleCircle={this.getOnOffToggleCircle()}
+              toggleClassCircle={this.toggleClassCircle}
+            />
+          ))}
         </ul>
       </div>
     );
