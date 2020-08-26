@@ -1,14 +1,24 @@
 import React from 'react';
 import './menu-item.styles.scss';
+import { withRouter, Link } from 'react-router-dom';
 
-const MenuItemOne = ({ icon, title }) => (
+const MenuItemOne = ({ icon, title, history, linkUrl, match }) => (
   <li className="tabIcon">
-    <a href="/">
+    <Link to={`/${linkUrl}`}>
+      {/* <div
+      onClick={
+        () => history.push(`/${linkUrl}`)
+        // console.log('HISTORY', history)
+        // console.log('MATCH', match.url + linkUrl)
+        // console.log('LINKURL', linkUrl)
+      }
+    > */}
       <span className="icon">
         <i className={`fas ${icon} fa-lg`}></i>
       </span>
       <span className="text">{title}</span>
-    </a>
+      {/* </div> */}
+    </Link>
   </li>
 );
 
@@ -23,13 +33,15 @@ const MenuItemTwo = ({
     className={`tabIcon ${toggle ? 'circle' : ''}`}
     onClick={toggle ? toggleClassCircle : null}
   >
-    <a href="#">
+    <Link to="#">
       <span className="icon">
         <i className={toggle ? getOnOffToggleCircle : icon}></i>
       </span>
       <span className="text">{title}</span>
-    </a>
+    </Link>
   </li>
 );
 
-export { MenuItemOne, MenuItemTwo };
+export default withRouter(MenuItemOne);
+
+export { MenuItemTwo };

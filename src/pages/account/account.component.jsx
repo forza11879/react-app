@@ -11,7 +11,7 @@ class AccountPage extends Component {
     return (
       <React.Fragment>
         <Sidebar />
-        <Main />
+        {/* <Main /> */}
         <Sidebartwo />
       </React.Fragment>
     );

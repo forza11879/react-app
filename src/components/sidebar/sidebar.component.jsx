@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './sidebar.styles.scss';
 import { menuItemsOne, menuItemsTwo } from './utils.js';
-import { MenuItemOne, MenuItemTwo } from './MenuItem/menu-item.component';
+import { MenuItemTwo } from './MenuItem/menu-item.component';
+import MenuItemOne from './MenuItem/menu-item.component';
 
 class Sidebar extends Component {
   state = {
