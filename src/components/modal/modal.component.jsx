@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 const modalRoot = document.getElementById('modal-root');
@@ -28,12 +28,37 @@ const MODAL_STYLES = {
   justifySelf: 'center',
 };
 
-function Modal({ open, children, onClose }) {
-  if (!open) return null;
+function Modal({ children, onClose }) {
+  // if (!open) return null;
+
+  // componentDidMount() {
+  //   document.addEventListener("click", this.closeModal, false);
+  // }
+
+  // componentWillUnmount() {
+  //   document.removeEventListener("click", this.closeModal, false);
+  // }
+  let modalRef = useRef();
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    const closeModal = ({ target }) => {
+      if (!modalRef.current.contains(target)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('mousedown', closeModal, false);
+
+    // returned function will be called on component unmount
+    return () => {
+      document.removeEventListener('mousedown', closeModal, false);
+    };
+  });
 
   return ReactDOM.createPortal(
-    <div style={OVERLAY_STYLES} /*onClick={onClose}*/>
-      <div style={MODAL_STYLES}>
+    <div style={OVERLAY_STYLES}>
+      <div ref={modalRef} style={MODAL_STYLES}>
         {children}
         <br />
         <button onClick={onClose}>Close</button>

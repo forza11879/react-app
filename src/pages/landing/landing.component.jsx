@@ -17,9 +17,11 @@ function Landing() {
   return (
     <div style={BUTTON_WRAPPER_STYLES}>
       <button onClick={() => handleOpenModel()}>Open Modal</button>
-      <Modal open={isOpen} onClose={() => handleCloseModal()}>
-        <LoginForm />
-      </Modal>
+      {isOpen ? (
+        <Modal onClose={() => handleCloseModal()}>
+          <LoginForm />
+        </Modal>
+      ) : null}
     </div>
   );
 }
