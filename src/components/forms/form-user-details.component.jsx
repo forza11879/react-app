@@ -3,11 +3,8 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from './form-elements/formik-control.js';
 
-function LoginForm() {
-  const initialValues = {
-    email: '',
-    password: '',
-  };
+function FormUserDetails(props) {
+  const { initialValues, nextStep } = props;
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Required'),
@@ -15,7 +12,9 @@ function LoginForm() {
   });
 
   const onSubmit = (values) => {
-    console.log('Form data', values);
+    nextStep();
+    console.log('Form data values', values);
+    console.log('Form data initialValues', initialValues);
   };
 
   return (
@@ -29,7 +28,6 @@ function LoginForm() {
           <Form>
             <FormikControl
               control="input"
-              // control='chakraInput'
               type="email"
               label="Email"
               name="email"
@@ -50,4 +48,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default FormUserDetails;

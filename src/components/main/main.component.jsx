@@ -4,7 +4,6 @@ import './main.styles.scss';
 import { createChart } from 'lightweight-charts';
 import { getData, getCreateChart } from '../MyAsyncSelecy/utils.js';
 import MyAsyncSelect from '../MyAsyncSelecy/my-async-select.component';
-import LoginForm from '../forms/login-form.component';
 
 let candleSeries;
 
@@ -80,7 +79,6 @@ class Main extends Component {
               onFocusedOptionChanged={this.onFocusedOptionChanged}
               onOptionSelected={this.onOptionSelected}
             />
-            <LoginForm />
           </div>
           <div className="box two" ref={this.ref}></div>
         </div>

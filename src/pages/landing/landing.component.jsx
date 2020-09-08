@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../../components/modal/modal.component';
-import LoginForm from '../../components/forms/login-form.component.jsx';
+import UserForm from '../../components/forms/multi-step-login-form.component';
 
 import './landing.styles.scss';
 
@@ -19,7 +19,7 @@ function Landing() {
       <button onClick={() => handleOpenModel()}>Open Modal</button>
       {isOpen ? (
         <Modal onClose={() => handleCloseModal()}>
-          <LoginForm />
+          <UserForm />
         </Modal>
       ) : null}
     </div>
