@@ -4,20 +4,18 @@ import * as Yup from 'yup';
 import FormikControl from './form-elements/formik-control.js';
 
 function FormPersonalDetails(props) {
-  const { initialValues, nextStep } = props;
+  const { initialValues, secondStep, prevStep } = props;
 
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Required'),
     password: Yup.string().required('Required'),
   });
 
-  const nextClick = (e) => {
-    e.preventDefault();
-    nextStep();
-  };
-
   const onSubmit = (values) => {
-    console.log('Form data', values);
+    const { email, password } = values;
+    secondStep(email, password);
+    console.log('Form data values', values);
+    console.log('Form data initialValues', initialValues);
   };
 
   return (
@@ -42,16 +40,12 @@ function FormPersonalDetails(props) {
               label="Password"
               name="password"
             />
-            <button type="submit" disabled={!formik.isValid}>
-              Submit
+            <button type="button" onClick={prevStep}>
+              Previous Step
             </button>
 
-            <button
-              type="submit"
-              disabled={!formik.isValid}
-              onClick={nextClick}
-            >
-              Next Step
+            <button type="submit" disabled={!formik.isValid}>
+              Submit
             </button>
           </Form>
         );
