@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikControl from './form-elements/formik-control.js';
+import FormikControl from '../form-elements/formik-control.js';
 
 function FormUserDetails(props) {
   const { initialValues, firstStep } = props;

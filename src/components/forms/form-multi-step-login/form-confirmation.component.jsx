@@ -1,7 +1,15 @@
 import React from 'react';
+import { postSignup } from './utils.js';
 
 function FormConfirmation(props) {
   const { initialValues, prevStep } = props;
+
+  const onClick = () => {
+    const { firstName, email, password } = initialValues;
+    const obj = { name: firstName, email, password };
+    const url = '/auth/signup';
+    postSignup(url, obj);
+  };
 
   return (
     <React.Fragment>
@@ -12,6 +20,9 @@ function FormConfirmation(props) {
       </ul>
       <button type="button" onClick={prevStep}>
         Previous Step
+      </button>
+      <button type="button" onClick={onClick}>
+        Submit
       </button>
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../../components/modal/modal.component';
-import UserForm from '../../components/forms/multi-step-login-form.component';
+import UserForm from '../../components/forms/form-multi-step-login/multi-step-login-form.component.jsx';
 
 import './landing.styles.scss';
 

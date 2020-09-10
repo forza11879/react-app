@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import FormikControl from './form-elements/formik-control.js';
+import FormikControl from '../form-elements/formik-control.js';
 
 function FormPersonalDetails(props) {
   const { initialValues, secondStep, prevStep } = props;
@@ -45,7 +45,7 @@ function FormPersonalDetails(props) {
             </button>
 
             <button type="submit" disabled={!formik.isValid}>
-              Submit
+              Next Step
             </button>
           </Form>
         );

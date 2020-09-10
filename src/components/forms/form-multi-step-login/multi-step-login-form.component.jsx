@@ -16,15 +16,16 @@ function UserForm() {
   const { step } = inputValue;
 
   // Proceed to next step
-  // const nextStep = (email, password) => {
-  //   setInputValue({
-  //     ...inputValue,
-  //     step: step + 1,
-  //     email: email,
-  //     password: password,
-  //   });
+  // const nextStep = (arg1, arg2) => {
+  //   setInputValue((prevState) => ({
+  //     ...prevState,
+  //     step: prevState.step + 1,
+  //     arg1: arg1,
+  //     arg2: arg2,
+  //   }));
   // };
 
+  // Proceed to next step
   const firstStep = (firstName, lastName) => {
     setInputValue((prevState) => ({
       ...prevState,
@@ -33,7 +34,7 @@ function UserForm() {
       lastName: lastName,
     }));
   };
-
+  // Proceed to next step
   const secondStep = (email, password) => {
     setInputValue((prevState) => ({
       ...prevState,
@@ -45,17 +46,11 @@ function UserForm() {
 
   // Go back to prev step
   const prevStep = () => {
-    // setInputValue({ ...inputValue, step: step - 1 });
     setInputValue((prevState) => ({
       ...prevState,
       step: prevState.step - 1,
     }));
   };
-
-  // Handle fields change
-  //   const handleChange = (input) => (e) => {
-  //     this.setState({ [input]: e.target.value });
-  //   };
 
   switch (step) {
     case 1:
@@ -72,11 +67,7 @@ function UserForm() {
       );
     case 3:
       return (
-        <FormConfirmation
-          // nextStep={nextStep}
-          prevStep={prevStep}
-          initialValues={inputValue}
-        />
+        <FormConfirmation prevStep={prevStep} initialValues={inputValue} />
       );
     // case 4:
     //   return <Success />;
