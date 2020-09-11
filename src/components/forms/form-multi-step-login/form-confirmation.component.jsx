@@ -2,13 +2,15 @@ import React from 'react';
 import { postSignup } from './utils.js';
 
 function FormConfirmation(props) {
-  const { initialValues, prevStep } = props;
+  const { initialValues, prevStep, thirdStep, fourthStep } = props;
 
-  const onClick = () => {
+  const onClick = async () => {
     const { firstName, email, password } = initialValues;
     const obj = { name: firstName, email, password };
     const url = '/auth/signup';
-    postSignup(url, obj);
+    const data = await postSignup(url, obj);
+
+    data.error ? fourthStep() : thirdStep();
   };
 
   return (

@@ -6,22 +6,25 @@ function postSignup(url, data) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   };
-  fetch(url, requestOptions)
+  return fetch(url, requestOptions)
     .then(async (response) => {
-      const data = await response.json();
-      console.log('data from back-end response.status', response.status);
-      console.log('data from back-end data.message', data.message);
-      console.log('data from back-end data', data);
+      return await response.json();
+      // if (response.status === 500) {
+      //   // console.log('data from back-end response.status', response.status);
+      //   // console.log('data from back-end data.error', data.error);
+      //   // console.log('data from back-end data', data);
+      //   return data.error;
+      //   // get error message from body or default to response status
+      //   // const error = (data && data.message) || response.status;
+      //   // return Promise.reject(error);
+      // }
+
+      // console.log('data from back-end response.status', response.status);
+      // console.log('data from back-end data.message', data.message);
+      // console.log('data from back-end data', data);
+      // return data.message;
 
       // check for error response
-      if (response.status === 500) {
-        console.log('data from back-end response.status', response.status);
-        console.log('data from back-end data.error', data.error);
-        console.log('data from back-end data', data);
-        // get error message from body or default to response status
-        // const error = (data && data.message) || response.status;
-        // return Promise.reject(error);
-      }
 
       // this.setState({ postId: data.id });
     })
