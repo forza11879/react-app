@@ -13,7 +13,8 @@ function FormUserDetails(props) {
 
   const onSubmit = (values) => {
     const { firstName, lastName } = values;
-    firstStep(firstName, lastName);
+    // firstStep(firstName, lastName);
+    firstStep({ firstName, lastName }, 1);
     console.log('Form data values', values);
     console.log('Form data initialValues', initialValues);
   };

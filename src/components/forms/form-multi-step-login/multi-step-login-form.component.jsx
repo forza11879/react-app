@@ -17,76 +17,41 @@ function UserForm() {
   const [inputValue, setInputValue] = useState(initialValues);
   const { step } = inputValue;
 
+  const setStep = (newProps, stepIncrement) => {
+    setInputValue((prevState) => ({
+      ...prevState,
+      ...newProps,
+      step: prevState.step + stepIncrement,
+    }));
+  };
+
   // Proceed to next step
-  // const nextStep = (arg1, arg2) => {
+  // const firstStep = (firstName, lastName) => {
   //   setInputValue((prevState) => ({
   //     ...prevState,
   //     step: prevState.step + 1,
-  //     arg1: arg1,
-  //     arg2: arg2,
+  //     firstName: firstName,
+  //     lastName: lastName,
   //   }));
   // };
 
-  // Proceed to next step
-  const firstStep = (firstName, lastName) => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      step: prevState.step + 1,
-      firstName: firstName,
-      lastName: lastName,
-    }));
-  };
-  // Proceed to next step
-  const secondStep = (email, password) => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      step: prevState.step + 1,
-      email: email,
-      password: password,
-    }));
-  };
-
-  const thirdStep = () => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      step: prevState.step + 1,
-    }));
-  };
-
-  const fourthStep = () => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      step: prevState.step + 2,
-    }));
-  };
-
-  // Go back to prev step
-  const prevStep = () => {
-    setInputValue((prevState) => ({
-      ...prevState,
-      step: prevState.step - 1,
-    }));
-  };
-
   switch (step) {
     case 1:
-      return (
-        <FormUserDetails initialValues={inputValue} firstStep={firstStep} />
-      );
+      return <FormUserDetails initialValues={inputValue} firstStep={setStep} />;
     case 2:
       return (
         <FormPersonalDetails
           initialValues={inputValue}
-          secondStep={secondStep}
-          prevStep={prevStep}
+          secondStep={setStep}
+          prevStep={setStep}
         />
       );
     case 3:
       return (
         <FormConfirmation
-          prevStep={prevStep}
-          thirdStep={thirdStep}
-          fourthStep={fourthStep}
+          prevStep={setStep}
+          thirdStep={setStep}
+          fourthStep={setStep}
           initialValues={inputValue}
         />
       );

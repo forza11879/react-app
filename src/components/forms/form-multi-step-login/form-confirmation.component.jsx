@@ -2,7 +2,7 @@ import React from 'react';
 import { postSignup } from './utils.js';
 
 function FormConfirmation(props) {
-  const { initialValues, prevStep, thirdStep, fourthStep } = props;
+  const { initialValues, thirdStep } = props;
 
   const onClick = async () => {
     const { firstName, email, password } = initialValues;
@@ -10,7 +10,11 @@ function FormConfirmation(props) {
     const url = '/auth/signup';
     const data = await postSignup(url, obj);
 
-    data.error ? fourthStep() : thirdStep();
+    data.error ? thirdStep({}, 2) : thirdStep({}, 1);
+  };
+
+  const prevStep = () => {
+    thirdStep({}, -1);
   };
 
   return (
