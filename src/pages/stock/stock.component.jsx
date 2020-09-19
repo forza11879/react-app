@@ -9,11 +9,11 @@ class StockPage extends Component {
   render() {
     console.log('Props AccountPage', this.props);
     return (
-      <React.Fragment>
+      <div className="stock">
         <Sidebar />
         <Main />
         <Sidebartwo />
-      </React.Fragment>
+      </div>
     );
   }
 }
