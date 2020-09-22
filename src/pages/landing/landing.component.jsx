@@ -15,32 +15,35 @@ function Landing() {
   const handleOpenModel = () => setIsOpen(true);
   const handleCloseModal = () => setIsOpen(false);
   return (
-    <div className="landing__header">
-      <a className="logo__landing" href="/">
-        Trading Platform
-      </a>
-      <nav>
-        <ul className="nav__links">
-          <li /*style={BUTTON_WRAPPER_STYLES}*/>
-            <a href="#">Services</a>
-          </li>
-          <li>
-            <a href="#">Projects</a>
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-        </ul>
-      </nav>
-      <a href="#">
-        <button onClick={() => handleOpenModel()}>SignUp</button>
-        {isOpen ? (
-          <Modal onClose={() => handleCloseModal()}>
-            <UserForm />
-          </Modal>
-        ) : null}
-      </a>
-      <p className="menu cta">Menu</p>
+    <div className="landing">
+      <div className="landing__header">
+        <a className="logo__landing" href="/">
+          Trading Platform
+        </a>
+        <nav>
+          <ul className="nav__links">
+            <li /*style={BUTTON_WRAPPER_STYLES}*/>
+              <a href="#">Services</a>
+            </li>
+            <li>
+              <a href="#">Projects</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+          </ul>
+        </nav>
+        <a href="#">
+          <button onClick={() => handleOpenModel()}>SignUp</button>
+          {isOpen ? (
+            <Modal onClose={() => handleCloseModal()}>
+              <UserForm />
+            </Modal>
+          ) : null}
+        </a>
+        <p className="menu cta">Menu</p>
+      </div>
+      <div className="landing__main"></div>
     </div>
   );
 }

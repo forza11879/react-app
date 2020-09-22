@@ -5,7 +5,39 @@ html {
   overflow: hidden;
 }
 
+// body {
+//   background: #f6f5f7;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   font-family: 'Montserrat', sans-serif;
+//   height: 100vh;
+//   margin: -20px 0 50px;
+// }
+
+.landing {
+  // height: 100vh;
+  // width: 100wh;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  height: 100vh;
+  display: grid;
+  // grid-template-columns: 70px 1fr;
+  // grid-template-columns: auto 8fr auto;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas: 'landingHeader' 'landingMain';
+}
+
+.landing__main {
+}
+
 .landing__header {
+  grid-area: landingHeader;
   display: flex;
   justify-content: space-between;
   align-items: center;
