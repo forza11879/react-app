@@ -5,7 +5,14 @@ import FormikControl from '../form-elements/formik-control.js';
 import './form.styles.scss';
 
 function FormUserDetails(props) {
-  const { initialValues, firstStep } = props;
+  const {
+    initialValues,
+    firstStep,
+    addActiveClassToSignUp,
+    toggleValues,
+  } = props;
+
+  console.log('toggleValues state two:', toggleValues);
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required('Required'),
@@ -24,22 +31,28 @@ function FormUserDetails(props) {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
+      toggleValues={toggleValues}
       onSubmit={onSubmit}
     >
       {(formik) => {
         return (
-          <div className="containerForm" id="container">
+          <div
+            className={`containerForm ${
+              toggleValues.isActive ? 'right-panel-active' : ''
+            }`}
+            id="container"
+          >
             <div className="form-container sign-up-container">
               <Form>
                 <h1>Create Account</h1>
                 <div className="social-container">
-                  <a href="#" class="social">
+                  <a href="#" className="social">
                     <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="#" class="social">
+                  <a href="#" className="social">
                     <i className="fab fa-google-plus-g"></i>
                   </a>
-                  <a href="#" class="social">
+                  <a href="#" className="social">
                     <i className="fab fa-linkedin-in"></i>
                   </a>
                 </div>
@@ -61,18 +74,18 @@ function FormUserDetails(props) {
                 </button>
               </Form>
             </div>
-            <div class="form-container sign-in-container">
+            <div className="form-container sign-in-container">
               <Form>
                 <h1>Sign in</h1>
-                <div class="social-container">
-                  <a href="#" class="social">
-                    <i class="fab fa-facebook-f"></i>
+                <div className="social-container">
+                  <a href="#" className="social">
+                    <i className="fab fa-facebook-f"></i>
                   </a>
-                  <a href="#" class="social">
-                    <i class="fab fa-google-plus-g"></i>
+                  <a href="#" className="social">
+                    <i className="fab fa-google-plus-g"></i>
                   </a>
-                  <a href="#" class="social">
-                    <i class="fab fa-linkedin-in"></i>
+                  <a href="#" className="social">
+                    <i className="fab fa-linkedin-in"></i>
                   </a>
                 </div>
                 <span>or use your account</span>
@@ -92,22 +105,32 @@ function FormUserDetails(props) {
                 <button>Sign In</button>
               </Form>
             </div>
-            <div class="overlay-container">
-              <div class="overlay">
-                <div class="overlay-panel overlay-left">
+            <div className="overlay-container">
+              <div className="overlay">
+                <div className="overlay-panel overlay-left">
                   <h1>Welcome Back!</h1>
                   <p>
                     To keep connected with us please login with your personal
                     info
                   </p>
-                  <button class="ghost" id="signIn">
+                  <button
+                    type="button"
+                    onClick={addActiveClassToSignUp}
+                    className="ghost"
+                    id="signIn"
+                  >
                     Sign In
                   </button>
                 </div>
-                <div class="overlay-panel overlay-right">
+                <div className="overlay-panel overlay-right">
                   <h1>Hello, Friend!</h1>
                   <p>Enter your personal details and start journey with us</p>
-                  <button class="ghost" id="signUp">
+                  <button
+                    type="button"
+                    onClick={addActiveClassToSignUp}
+                    className="ghost"
+                    id="signUp"
+                  >
                     Sign Up
                   </button>
                 </div>
