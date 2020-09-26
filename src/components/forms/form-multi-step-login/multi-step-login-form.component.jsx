@@ -15,7 +15,7 @@ function UserForm() {
   };
 
   const toggleValues = {
-    isActive: false,
+    isActive: true,
   };
   console.log('toggleValues state one:', toggleValues);
 
@@ -37,6 +37,16 @@ function UserForm() {
       ...prevState,
       isActive: !prevState.isActive,
     }));
+    setInputValue((prevState) => ({
+      // ...prevState,
+      step: 1,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    }));
+
+    console.log('initialValues reset:', initialValues);
   };
 
   switch (step) {
@@ -44,9 +54,9 @@ function UserForm() {
       return (
         <FormUserDetails
           initialValues={inputValue}
-          toggleValues={toggleValue}
           firstStep={setStep}
           addActiveClassToSignUp={addActiveClassToSignUp}
+          toggleValues={toggleValue}
         />
       );
     case 2:
@@ -54,7 +64,8 @@ function UserForm() {
         <FormPersonalDetails
           initialValues={inputValue}
           secondStep={setStep}
-          prevStep={setStep}
+          addActiveClassToSignUp={addActiveClassToSignUp}
+          toggleValues={toggleValue}
         />
       );
     case 3:

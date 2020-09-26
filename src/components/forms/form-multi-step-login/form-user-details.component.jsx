@@ -1,7 +1,7 @@
 import React from 'react';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
-import FormikControl from '../form-elements/formik-control.js';
+import { CSSTransition } from 'react-transition-group';
+import SignUpForm from './form-user-details/form-signup.component';
+import SignInForm from './form-user-details/form-signin.component';
 import './form.styles.scss';
 
 function FormUserDetails(props) {
@@ -14,132 +14,59 @@ function FormUserDetails(props) {
 
   console.log('toggleValues state two:', toggleValues);
 
-  const validationSchema = Yup.object({
-    firstName: Yup.string().required('Required'),
-    lastName: Yup.string().required('Required'),
-  });
-
-  const onSubmit = (values) => {
-    const { firstName, lastName } = values;
-    // firstStep(firstName, lastName);
-    firstStep({ firstName, lastName }, 1);
-    console.log('Form data values', values);
-    console.log('Form data initialValues', initialValues);
-  };
-
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      toggleValues={toggleValues}
-      onSubmit={onSubmit}
+    <div
+      className={`containerForm ${
+        toggleValues.isActive ? 'right-panel-active' : ''
+      }`}
+      id="container"
     >
-      {(formik) => {
-        return (
-          <div
-            className={`containerForm ${
-              toggleValues.isActive ? 'right-panel-active' : ''
-            }`}
-            id="container"
-          >
-            <div className="form-container sign-up-container">
-              <Form>
-                <h1>Create Account</h1>
-                <div className="social-container">
-                  <a href="#" className="social">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" className="social">
-                    <i className="fab fa-google-plus-g"></i>
-                  </a>
-                  <a href="#" className="social">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                </div>
-                <span>or use your email for registration</span>
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="First Name"
-                  name="firstName"
-                />
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="Last Name"
-                  name="lastName"
-                />
-                <button type="submit" disabled={!formik.isValid}>
-                  Next Step
-                </button>
-              </Form>
-            </div>
-            <div className="form-container sign-in-container">
-              <Form>
-                <h1>Sign in</h1>
-                <div className="social-container">
-                  <a href="#" className="social">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href="#" className="social">
-                    <i className="fab fa-google-plus-g"></i>
-                  </a>
-                  <a href="#" className="social">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                </div>
-                <span>or use your account</span>
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="First Name"
-                  name="firstName"
-                />
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="Last Name"
-                  name="lastName"
-                />
-                <a href="#">Forgot your password?</a>
-                <button>Sign In</button>
-              </Form>
-            </div>
-            <div className="overlay-container">
-              <div className="overlay">
-                <div className="overlay-panel overlay-left">
-                  <h1>Welcome Back!</h1>
-                  <p>
-                    To keep connected with us please login with your personal
-                    info
-                  </p>
-                  <button
-                    type="button"
-                    onClick={addActiveClassToSignUp}
-                    className="ghost"
-                    id="signIn"
-                  >
-                    Sign In
-                  </button>
-                </div>
-                <div className="overlay-panel overlay-right">
-                  <h1>Hello, Friend!</h1>
-                  <p>Enter your personal details and start journey with us</p>
-                  <button
-                    type="button"
-                    onClick={addActiveClassToSignUp}
-                    className="ghost"
-                    id="signUp"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </div>
-            </div>
+      <div className="form-container sign-up-container">
+        <CSSTransition
+          timeout={5330}
+          in={toggleValues.isActive}
+          classNames={'sign-up-container'}
+          unmountOnExit
+        >
+          <SignUpForm initialValues={initialValues} firstStep={firstStep} />
+        </CSSTransition>
+      </div>
+      <div className="form-container sign-in-container">
+        {!toggleValues.isActive && (
+          <SignInForm initialValues={initialValues} firstStep={firstStep} />
+        )}
+      </div>
+      <div className="overlay-container">
+        <div className="overlay">
+          <div className="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <button
+              type="button"
+              onClick={addActiveClassToSignUp}
+              className="ghost"
+              id="signIn"
+            >
+              Sign In
+            </button>
           </div>
-        );
-      }}
-    </Formik>
+          <div className="overlay-panel overlay-right">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <button
+              type="button"
+              onClick={addActiveClassToSignUp}
+              className="ghost"
+              id="signUp"
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
