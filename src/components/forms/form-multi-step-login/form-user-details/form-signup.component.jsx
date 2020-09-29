@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import FormikControl from '../../form-elements/formik-control.js';
@@ -26,34 +27,40 @@ function SignUpForm(props) {
       {(formik) => {
         return (
           <Form>
-            <h1>Create Account</h1>
-            <div className="social-container">
-              <a href="#" className="social">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" className="social">
-                <i className="fab fa-google-plus-g"></i>
-              </a>
-              <a href="#" className="social">
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-            </div>
-            <span>or use your email for registration</span>
-            <FormikControl
-              control="input"
-              type="text"
-              label="First Name"
-              name="firstName"
-            />
-            <FormikControl
-              control="input"
-              type="text"
-              label="Last Name"
-              name="lastName"
-            />
-            <button type="submit" disabled={!formik.isValid}>
-              Next Step
-            </button>
+            <motion.div
+              initial={{ x: '100vw', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0, duration: 0.5, type: 'tween' }}
+            >
+              <h1>Create Account</h1>
+              <div className="social-container">
+                <a href="#" className="social">
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" className="social">
+                  <i className="fab fa-google-plus-g"></i>
+                </a>
+                <a href="#" className="social">
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+              </div>
+              <span>or use your email for registration</span>
+              <FormikControl
+                control="input"
+                type="text"
+                label="First Name"
+                name="firstName"
+              />
+              <FormikControl
+                control="input"
+                type="text"
+                label="Last Name"
+                name="lastName"
+              />
+              <button type="submit" disabled={!formik.isValid}>
+                Next Step
+              </button>
+            </motion.div>
           </Form>
         );
       }}

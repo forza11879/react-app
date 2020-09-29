@@ -1,5 +1,5 @@
 import React from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { motion } from 'framer-motion';
 import SignUpForm from './form-user-details/form-signup.component';
 import SignInForm from './form-user-details/form-signin.component';
 import './form.styles.scss';
@@ -22,14 +22,12 @@ function FormUserDetails(props) {
       id="container"
     >
       <div className="form-container sign-up-container">
-        <CSSTransition
-          timeout={5330}
-          in={toggleValues.isActive}
-          classNames={'sign-up-container'}
-          unmountOnExit
-        >
-          <SignUpForm initialValues={initialValues} firstStep={firstStep} />
-        </CSSTransition>
+        <SignUpForm
+          initialValues={initialValues}
+          firstStep={firstStep}
+          initial={{ x: 200 }}
+          animate={{ x: 100 }}
+        />
       </div>
       <div className="form-container sign-in-container">
         {!toggleValues.isActive && (
