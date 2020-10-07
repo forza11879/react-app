@@ -5,6 +5,23 @@ import * as Yup from 'yup';
 import FormikControl from '../../form-elements/formik-control.js';
 import './form.styles.scss';
 
+const formVariants = {
+  hidden: {
+    x: '100vw',
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      delay: 0,
+      duration: 1.2,
+      type: 'spring',
+      stiffness: 70,
+    },
+  },
+};
+
 function SignUpForm(props) {
   const { initialValues, secondStep } = props;
 
@@ -32,9 +49,9 @@ function SignUpForm(props) {
         return (
           <Form>
             <motion.div
-              initial={{ x: '100vw', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0, duration: 0.5, type: 'tween' }}
+              variants={formVariants}
+              initial="hidden"
+              animate="visible"
             >
               <h1>Create Account</h1>
               <div className="social-container">

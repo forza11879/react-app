@@ -22,12 +22,7 @@ function FormUserDetails(props) {
       id="container"
     >
       <div className="form-container sign-up-container">
-        <SignUpForm
-          initialValues={initialValues}
-          firstStep={firstStep}
-          initial={{ x: 200 }}
-          animate={{ x: 100 }}
-        />
+        <SignUpForm initialValues={initialValues} firstStep={firstStep} />
       </div>
       <div className="form-container sign-in-container">
         {!toggleValues.isActive && (
