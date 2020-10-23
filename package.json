@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@types/react-transition-group": "^4.4.0",
     "bootstrap": "^4.5.0",
+    "env-cmd": "^10.1.0",
     "formik": "^2.1.5",
     "framer-motion": "^2.7.5",
     "lightweight-charts": "^3.1.5",
@@ -19,7 +20,7 @@
     "react-modal": "^3.11.2",
     "react-resize-panel": "^0.3.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^3.4.4",
     "react-select": "^3.1.0",
     "react-splitter-layout": "^4.0.0",
     "react-transition-group": "^4.4.1",
@@ -34,7 +35,7 @@
     "postbuild": "purgecss --css build/static/css/*.css --content build/index.html build/static/js/*.js --output build/static/css"
   },
   "proxy": "http://localhost:3500",
-  "eslintConfig": {
+   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": {

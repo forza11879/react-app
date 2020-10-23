@@ -572,3 +572,5 @@ function syncToInterval(interval) {
 }
 
 syncToInterval(intervals[0]);
+
+// https://jsfiddle.net/TradingView/qrb9a850/

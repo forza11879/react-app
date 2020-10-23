@@ -1,36 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import './main.styles.scss';
 import { createChart } from 'lightweight-charts';
-import { getData, getCreateChart } from '../MyAsyncSelecy/utils.js';
+import { getData, getCreateChart, useFetch } from '../MyAsyncSelecy/utils.js';
 import MyAsyncSelect from '../MyAsyncSelecy/my-async-select.component';
-
-// let candleSeries;
+let chart = null;
 function Main() {
   const ref = React.createRef();
-  const [selectedSymbol, setSelectedSymbol] = useState('');
+  // const inputRef = useRef();
+  // const ref = useRef();
+  const [{ selectedSymbol }, setSelectedSymbol] = useState('');
   const [isClearable] = useState(true);
 
+  const url = `${process.env.REACT_APP_URL_STOCK}${
+    selectedSymbol ? selectedSymbol : 'f'
+  }`;
+  const { data } = useFetch(url);
+
   useEffect(() => {
-    // candleSeries = getCreateChart(ref.current, createChart);
-
-    let chart = createChart(ref.current, {
-      width: 900,
-      height: 400,
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: false,
-      },
-    });
-
+    chart = getCreateChart(ref.current, createChart);
     let candleSeries = chart.addCandlestickSeries();
+    candleSeries.setData(data);
 
-    getData(selectedSymbol).then((data) => {
-      // console.log(data);
-      candleSeries.setData(data);
-    });
-    console.log('STATE from DidMount', selectedSymbol);
-    console.log('RENDER Parent');
+    // inputRef.current.focus();
 
     return () => {
       if (chart !== null) {
@@ -38,7 +30,7 @@ function Main() {
         chart = null;
       }
     };
-  }, [ref, selectedSymbol]);
+  }, [data, ref]);
 
   // useEffect(() => {
   //   getData(selectedSymbol).then((data) => {
@@ -63,6 +55,7 @@ function Main() {
       <div className="trading">
         <div className="box one">
           <MyAsyncSelect
+            // ref={inputRef}
             cacheOptions
             // defaultOptions={this.loadOptions} // loaded only on init
             isClearable={isClearable}
