@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 async function getData(url, symbol) {
   const response = await fetch(`${url}${symbol ? symbol : 'bac'}`);

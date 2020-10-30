@@ -7,6 +7,7 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* React.StrictMode in development mode is doubling re-render */}
     <BrowserRouter>
       <App />
     </BrowserRouter>

@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import './main.styles.scss';
 import { createChart } from 'lightweight-charts';
-import { getData, getCreateChart, useFetch } from '../MyAsyncSelecy/utils.js';
+import { getCreateChart, useFetch } from '../MyAsyncSelecy/utils.js';
 import MyAsyncSelect from '../MyAsyncSelecy/my-async-select.component';
 let chart = null;
 function Main() {
-  const ref = React.createRef();
-  // const inputRef = useRef();
-  // const ref = useRef();
+  const ref = useRef();
+
+  // @ts-ignore
   const [{ selectedSymbol }, setSelectedSymbol] = useState('');
   const [isClearable] = useState(true);
 
@@ -22,7 +22,8 @@ function Main() {
     let candleSeries = chart.addCandlestickSeries();
     candleSeries.setData(data);
 
-    // inputRef.current.focus();
+    // @ts-ignore
+    // ref.current.focus();
 
     return () => {
       if (chart !== null) {
@@ -45,6 +46,8 @@ function Main() {
 
   const onOptionSelected = (option) => {
     console.log('selected: ', option.label);
+
+    // @ts-ignore
     setSelectedSymbol({ selectedSymbol: option.label }, () =>
       console.log('STATE selectedSymbol', selectedSymbol)
     );
@@ -56,11 +59,13 @@ function Main() {
         <div className="box one">
           <MyAsyncSelect
             // ref={inputRef}
+            // @ts-ignore
             cacheOptions
             // defaultOptions={this.loadOptions} // loaded only on init
             isClearable={isClearable}
             onFocusedOptionChanged={onFocusedOptionChanged}
             onOptionSelected={onOptionSelected}
+            // setIsClearable={setIsClearable}
           />
         </div>
         <div className="box two" ref={ref}></div>
