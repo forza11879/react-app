@@ -1,0 +1,174 @@
+{
+	"name": "vscode-vuln-cost",
+	"displayName": "Vuln Cost - Security Scanner",
+	"description": "Security Scanner to find and fix vulnerabilities in JavaScript and TypeScript. Inspired by Import Cost",
+	"license": "MIT",
+	"version": "1.3.11",
+	"private": true,
+	"publisher": "snyk-security",
+	"scripts": {
+		"DISABLED_postinstall": "node ./node_modules/vscode/bin/install",
+		"release": "semantic-release",
+		"check": "eslint src/* && prettier -c ./src/**/*",
+		"build": "webpack --mode production",
+		"vscode:prepublish": "npm run check && npm run build",
+		"webpack": "webpack --mode development",
+		"dev": "webpack --mode development --watch",
+		"test": "jest ."
+	},
+	"author": "Snyk <vscode@snyk.io>",
+	"engines": {
+		"vscode": "^1.40.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:javascript",
+		"onLanguage:javascriptreact",
+		"onLanguage:typescript",
+		"onLanguage:typescriptreact",
+		"onLanguage:html",
+		"onLanguage:json"
+	],
+	"keywords": [
+		"import",
+		"require",
+		"vuln",
+		"vulnerability",
+		"security"
+	],
+	"main": "./dist/extension",
+	"contributes": {
+		"configuration": {
+			"type": "object",
+			"title": "Vuln Cost",
+			"properties": {
+				"vulnCost.ignorePaths": {
+					"type": "array",
+					"default": [],
+					"description:": "Paths which should not be scanned"
+				},
+				"vulnCost.typescriptExtensions": {
+					"type": "array",
+					"default": [
+						"\\.tsx?$"
+					],
+					"description": "File extensions to be parsed by the TypeScript parser"
+				},
+				"vulnCost.javascriptExtensions": {
+					"type": "array",
+					"default": [
+						"\\.jsx?$"
+					],
+					"description": "File extensions to be parsed by the JavaScript parser"
+				},
+				"vulnCost.htmlExtensions": {
+					"type": "array",
+					"default": [
+						"\\.html?$"
+					],
+					"description": "File extensions to be parsed by the HTML parser"
+				},
+				"vulnCost.showDecoration": {
+					"type": "boolean",
+					"default": true,
+					"description": "Display the decoration when starting to check vulnerability"
+				},
+				"vulnCost.sendStatistics": {
+					"type": "boolean",
+					"default": true,
+					"description": "Send anonymous statistics on extension usage to server"
+				},
+				"vulnCost.debug": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enable debug logging"
+				},
+				"vulnCost.timeout": {
+					"type": "number",
+					"default": 10000,
+					"description": "Size calculation timeout in milliseconds (requires restart)"
+				}
+			}
+		},
+		"commands": [
+			{
+				"command": "vulnCost.check",
+				"title": "Snyk: run vulnerability test"
+			},
+			{
+				"command": "vulnCost.toggle",
+				"title": "Snyk: Toggle vuln cost"
+			},
+			{
+				"command": "vulnCost.signIn",
+				"title": "Snyk: Signup/create a Snyk account"
+			},
+			{
+				"command": "vulnCost.signOut",
+				"title": "Snyk: Sign out"
+			},
+			{
+				"command": "vulnCost.showOutput",
+				"title": "Snyk: Show vulnerability report"
+			},
+			{
+				"command": "vulnCost.openVulnPage",
+				"title": "Snyk: Show vulnerability page"
+			}
+		]
+	},
+	"prettier": {
+		"singleQuote": true,
+		"trailingComma": "es5"
+	},
+	"dependencies": {
+		"@babel/parser": "^7.12.11",
+		"@babel/traverse": "^7.12.12",
+		"@babel/types": "^7.12.12",
+		"@snyk/configstore": "^3.2.0-rc1",
+		"axios": "0.21.1",
+		"find-package-json": "^1.2.0",
+		"htmlparser2": "^4.1.0",
+		"uuid": "^7.0.3",
+		"validate-npm-package-name": "^3.0.0"
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.9.5",
+		"@semantic-release/changelog": "^5.0.1",
+		"@semantic-release/git": "^9.0.0",
+		"@types/node": "^6.0.40",
+		"@types/vscode": "^1.40.0",
+		"babel-jest": "^25.3.0",
+		"eslint": "^6.8.0",
+		"jest": "^25.3.0",
+		"nodemon": "^2.0.2",
+		"prettier": "^1.19.1",
+		"semantic-release": "^17.0.7",
+		"webpack": "^4.41.6",
+		"webpack-cli": "^3.3.11"
+	},
+	"galleryBanner": {
+		"color": "#1C78C0",
+		"theme": "dark"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/snyk/vulncost.git"
+	},
+	"bugs": {
+		"url": "https://github.com/snyk/vulncost/issues"
+	},
+	"homepage": "https://github.com/snyk/vulncost#readme",
+	"icon": "images/vuln-cost-logo.png",
+	"directories": {
+		"test": "test"
+	},
+	"snyk": true,
+	"__metadata": {
+		"id": "626a3aa7-e231-4b01-848b-1e01c4572689",
+		"publisherId": "5363f8b2-5867-498e-8579-3907694e4fd8",
+		"publisherDisplayName": "Snyk"
+	}
+}
